@@ -16,7 +16,7 @@ export const authentication = {
       userService.login(username, password)
         .then(
           user => {
-            commit('loginSuccess', user.data)
+            commit('loginSuccess', user)
             router.push('/app')
           },
           error => {

@@ -12,7 +12,7 @@ function login (email, password) {
       if (user.data.token) {
         localStorage.setItem('user', JSON.stringify(user.data))
       }
-      return user
+      return user.data
     })
     .catch(function (error) {
       console.log(error)

@@ -19,7 +19,7 @@
         <div class="fieldRow">
           <md-field>
             <label>Password</label>
-            <md-input v-model="login.password" autofocus></md-input>
+            <md-input v-model="login.password" autofocus  type="password"></md-input>
           </md-field>
           <span v-show="submitted && !login.password" class="invalid-field">Password is required</span>
         </div>
