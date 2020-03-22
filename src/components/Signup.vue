@@ -8,24 +8,33 @@
       </div>
 
       <div class="form">
-        <md-field>
-          <label>Name</label>
-          <md-input v-model="register.name" type="text"></md-input>
-        </md-field>
+        <div class="fieldRow">
+          <md-field>
+            <label>Name</label>
+            <md-input v-model="register.name" type="text"></md-input>
+          </md-field>
+          <span v-show="submitted && !register.name" class="invalid-field">Name is required</span>
+        </div>
 
-        <md-field>
-          <label>E-mail</label>
-          <md-input v-model="register.email" autofocus></md-input>
-        </md-field>
+        <div class="fieldRow">
+          <md-field>
+            <label>E-mail</label>
+            <md-input v-model="register.email" autofocus></md-input>
+          </md-field>
+          <span v-show="submitted && !register.email" class="invalid-field">Email is required</span>
+        </div>
 
-        <md-field md-has-password>
-          <label>Password</label>
-          <md-input v-model="register.password" type="password"></md-input>
-        </md-field>
+        <div class="fieldRow">
+          <md-field md-has-password>
+            <label>Password</label>
+            <md-input v-model="register.password" type="password"></md-input>
+          </md-field>
+          <span v-show="submitted && !register.password" class="invalid-field">Password is required</span>
+        </div>
       </div>
 
       <div class="actions md-layout md-alignment-center-space-between">
-        <md-button class="md-raised md-primary" @click="auth">Log in</md-button>
+        <md-button class="md-raised md-primary" @click="reg">Log in</md-button>
       </div>
 
       <div class="loading-overlay" v-if="loading">
@@ -38,11 +47,14 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'Signup',
   data () {
     return {
       loading: false,
+      submitted: false,
       register: {
         name: '',
         email: '',
@@ -51,19 +63,37 @@ export default {
     }
   },
   methods: {
-    auth () {
-      // your code to login user
-      // this is only for example of loading
-      this.loading = true
-      setTimeout(() => {
-        this.loading = false
-      }, 5000)
+    reg () {
+      this.submitted = true
+      const { name, email, password } = this.register
+      if (name && email && password) {
+        axios.post('http://localhost:3000/user/create', {
+          name: name,
+          email: email,
+          password: password
+        })
+          .then(function (user) {
+            console.log(user)
+          })
+          .catch(function (error) {
+            console.log(error)
+          })
+      }
     }
   }
 }
 </script>
 
 <style lang="scss">
+.fieldRow{
+  position: relative;
+  .invalid-field{
+        color: red;
+    position: absolute;
+    left: 0;
+    bottom: -22px;
+  }
+}
 .centered-container {
   display: flex;
   align-items: center;

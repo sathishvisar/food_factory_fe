@@ -8,15 +8,21 @@
       </div>
 
       <div class="form">
-        <md-field>
-          <label>E-mail</label>
-          <md-input v-model="login.username" autofocus></md-input>
-        </md-field>
+        <div class="fieldRow">
+          <md-field>
+            <label>E-mail</label>
+            <md-input v-model="login.username" autofocus></md-input>
+          </md-field>
+          <span v-show="submitted && !login.username" class="invalid-field">Email is required</span>
+        </div>
 
-        <md-field md-has-password>
-          <label>Password</label>
-          <md-input v-model="login.password" type="password"></md-input>
-        </md-field>
+        <div class="fieldRow">
+          <md-field>
+            <label>Password</label>
+            <md-input v-model="login.password" autofocus></md-input>
+          </md-field>
+          <span v-show="submitted && !login.password" class="invalid-field">Password is required</span>
+        </div>
       </div>
 
       <div class="actions md-layout md-alignment-center-space-between">
@@ -26,6 +32,11 @@
       <div class="loading-overlay" v-if="loading">
         <md-progress-spinner md-mode="indeterminate" :md-stroke="2"></md-progress-spinner>
       </div>
+
+      <md-snackbar :md-position="position" :md-duration="isInfinity ? Infinity : duration" :md-active.sync="showSnackbar" md-persistent>
+        <span>{{ snackMessage }}</span>
+        <md-button class="md-primary" @click="showSnackbar = false">Retry</md-button>
+      </md-snackbar>
 
     </md-content>
     <div class="background" />
@@ -38,6 +49,12 @@ export default {
   data () {
     return {
       loading: false,
+      submitted: false,
+      showSnackbar: false,
+      snackMessage: '',
+      position: 'center',
+      duration: 4000,
+      isInfinity: false,
       login: {
         username: '',
         password: '',
@@ -69,6 +86,15 @@ export default {
 </script>
 
 <style lang="scss">
+.fieldRow{
+  position: relative;
+  .invalid-field{
+        color: red;
+    position: absolute;
+    left: 0;
+    bottom: -22px;
+  }
+}
 .centered-container {
   display: flex;
   align-items: center;
