@@ -2,6 +2,9 @@
   "name": "food_factory_fe",
   "version": "0.1.0",
   "private": true,
+  "resolutions": { "eslint-loader": "2.1.2" },
+  "main": "dist/index",
+  "typings": "dist/index",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
