@@ -10,7 +10,7 @@
       <div class="form">
         <md-field>
           <label>E-mail</label>
-          <md-input v-model="login.email" autofocus></md-input>
+          <md-input v-model="login.username" autofocus></md-input>
         </md-field>
 
         <md-field md-has-password>
@@ -39,19 +39,30 @@ export default {
     return {
       loading: false,
       login: {
-        email: '',
-        password: ''
+        username: '',
+        password: '',
+        submitted: false
       }
     }
   },
+  computed: {
+    loggingIn () {
+      return this.$store.state.authentication.status.loggingIn
+    }
+  },
+  created () {
+    // reset login status
+    this.$store.dispatch('authentication/logout')
+  },
   methods: {
     auth () {
-      // your code to login user
-      // this is only for example of loading
-      this.loading = true
-      setTimeout(() => {
-        this.loading = false
-      }, 5000)
+      this.submitted = true
+      const { username, password } = this.login
+      const { dispatch } = this.$store
+      if (username && password) {
+        // this.loading = true
+        dispatch('authentication/login', { username, password })
+      }
     }
   }
 }
