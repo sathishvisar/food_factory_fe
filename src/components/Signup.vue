@@ -40,7 +40,7 @@
       </div>
 
       <div class="actions md-layout md-alignment-center-space-between">
-        <md-button class="md-raised md-primary" @click="reg">Log in</md-button>
+        <md-button class="md-raised md-primary" @click="reg">Register</md-button>
       </div>
 
       <div class="loading-overlay" v-if="loading">
@@ -55,6 +55,7 @@
 
 <script>
 import axios from 'axios'
+import router from '../router'
 
 export default {
   name: 'Signup',
@@ -81,6 +82,7 @@ export default {
         })
           .then(function (user) {
             console.log(user)
+            router.push('/signin')
           })
           .catch(function (error) {
             console.log(error)
