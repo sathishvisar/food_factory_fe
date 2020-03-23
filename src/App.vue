@@ -17,6 +17,8 @@
     </div>
 </template>
 <script>
+import { router } from './router/index'
+
 export default {
   name: 'App',
   computed: {
@@ -33,6 +35,7 @@ export default {
     logout () {
       localStorage.setItem('user', null)
       this.$store.dispatch('authentication/logout')
+      router.push('/signin')
     }
   }
 }
