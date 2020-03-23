@@ -1,4 +1,9 @@
 <template>
+<div>
+      <div id="nav" >
+        <router-link to="/signin">Signin</router-link> |
+        <router-link to="/signup">Sigup</router-link>
+    </div>
   <div class="centered-container">
     <md-content class="md-elevation-3">
 
@@ -41,6 +46,7 @@
     </md-content>
     <div class="background" />
   </div>
+</div>
 </template>
 
 <script>

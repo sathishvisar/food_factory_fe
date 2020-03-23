@@ -1,5 +1,9 @@
 <template>
   <div>
+     <md-toolbar class="md-accent" md-elevation="1" >
+        <h3 class="md-title" style="flex: 1;text-align: left;">Food Factroy</h3>
+        <md-button class="md-primary" @click="logout">Logout</md-button>
+      </md-toolbar>
     <h2>Admin</h2>
     <ul>
       <li>Name: {{ response.name }} </li>
@@ -10,6 +14,7 @@
 
 <script>
 import axios from 'axios'
+import { router } from './../router/index'
 
 export default {
   name: 'Dashboard',
@@ -19,6 +24,11 @@ export default {
     }
   },
   methods: {
+    logout () {
+      localStorage.setItem('user', null)
+      this.$store.dispatch('authentication/logout')
+      router.push('/signin')
+    },
     loadData () {
       // eslint-disable-next-line @typescript-eslint/no-this-alias
       const self = this
